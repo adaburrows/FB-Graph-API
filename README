@@ -1,0 +1,18 @@
+FB-Graph-API
+============
+
+Currently this is an alpha version of an easy to use implementation of the FB 
+Graph API.
+
+It is currently working with CakePHP as a component, please see the source files 
+in cake/components/
+
+To use it with cake, just move the files in cake/components/ to 
+$app_dir/controllers/components/ and include it like any other CakePHP component.
+
+It is written to be fairly stand alone and it has it's own basic Http client in 
+the http_request.php file. This means it will be easy to port to any other 
+framework you may be using.
+
+As a note of warning, the HTTP client currently assumes that all data is 
+returned error-free. This is listed as a todo in the source.
