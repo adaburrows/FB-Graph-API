@@ -165,7 +165,7 @@ class FbComponent extends HttpRequestComponent {
 	 * calls.
 	 * <http://developers.facebook.com/docs/api>
 	 */
-	function get_connection_types($object) {
+	function get_relationships($object) {
 		$this->request_params['path']		= $object;
 		$this->request_params['query_params']	= array(
 				'metadata'	=> 1,
@@ -181,14 +181,14 @@ class FbComponent extends HttpRequestComponent {
 	/* get_connections
 	 * ---------------
 	 * Requests an object's connections to other objects on the FB graph.
-	 * $connection_type can be: any of: (friends, home, feed (Wall), likes, 
+	 * $relation can be: any of: (friends, home, feed (Wall), likes, 
 	 * movies, books, notes, photos, videos, events, groups).
 	 * However, call get_connection_types to get a real list of connection
 	 * an object supports.
 	 * <http://developers.facebook.com/docs/api>
 	 */
-	function get_connections($object, $connection_type) {
-		$this->request_params['path']		= "$object/$connection_type";
+	function get_connections($object, $relation) {
+		$this->request_params['path']		= "$object/$relation";
 		$this->request_params['query_params']	= array(
 				'access_token' => $this->token
 			);

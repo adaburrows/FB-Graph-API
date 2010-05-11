@@ -1,5 +1,5 @@
-FB-Graph-API
-============
+Facebook Graph API
+==================
 
 Currently this is an alpha version of an easy to use implementation of the FB 
 Graph API.
@@ -16,3 +16,23 @@ framework you may be using.
 
 As a note of warning, the HTTP client currently assumes that all data is 
 returned error-free. This is listed as a todo in the source.
+
+API Conventions
+===============
+
+I would like to implement this as simply as possible, so I want it to follow 
+conventions as much as possible.
+
+In the Graph API each Facebook entity is represented as a node in the social 
+graph, we will call these objects. Each object has a relationship to other
+objects, these all called connection types or relationships.
+
+Objects can be requested and introspection is possible too (i.e: you can ask FB 
+what types of relationships it has to other objects. Since the protocol follows 
+an oAuth REST model, we can interact with objects using HTTP verbs: GET, POST, 
+and DELETE.
+
+In keeping with this, all methods will be named with the following scheme:
+	- verb_relationship(object_id)
+Except when the relationship is self then you will be able to access the object:
+	- verb_object(object_id)
