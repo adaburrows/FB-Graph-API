@@ -40,17 +40,28 @@ class HttpRequestComponent extends Object {
 	var $name="HttpRequest";
 
 	//basic request parameters
-	var $request_params = array(
+	var $request_params;
+	//string represntation of the request
+	var $request;
+	//array representation of the response
+	var $response;
+
+	function HttpRequestComponent() {$this->__construct();}
+
+	function __construct() {
+		//basic request parameters
+		$request_params = array(
 			'port'		=> 80,
 			'scheme'	=> '',
 			'host'		=> 'localhost',
 			'path'		=> '/',
 			'method'	=> 'GET'
-	);
-	//string represntation of the request
-	var $request = '';
-	//array representation of the response
-	var $response = array();
+		);
+		//string represntation of the request
+		$request = '';
+		//array representation of the response
+		$response = array();
+	}
 
 	/* explode_query
 	 * -------------

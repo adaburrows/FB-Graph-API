@@ -79,6 +79,32 @@ class FbComponent extends HttpRequestComponent {
 	//store the current controller reference here
 	var $controller;
 
+	function FbComponent() {$this->__construct();}
+
+	function __construct() {
+		//If you're not using cakePHP put the FB API keys here:
+		$this->fb_id		= '';
+		$this->fb_key		= '';
+		$this->fb_secret	= '';
+
+		//call parent constructor
+		parent::__construct();
+
+		//set up the specifics for connecting to facebook's api
+		$this->request_params['port']		= 443;
+		$this->request_params['scheme']		= 'tls://';
+		$this->request_params['host']		= $this->fb_d;		
+	}
+
+	/* initialize
+	 * ----------
+	 * This is only called in CakePHP. So remove it if you're porting to
+	 * another PHP platform. It is mostly used to grab a reference to the
+	 * controller object to redirect without interfering with sending
+	 * headers.
+	 * Also, I'm not sure if one can call Configure::read() in the
+	 * constructor (in PHP4).
+	 */
 	function initialize(&$controller){
 		//Store a reference to the current controller for redirects, etc/
 		$this->controller = &$controller;
@@ -86,10 +112,6 @@ class FbComponent extends HttpRequestComponent {
 		$this->fb_id		= Configure::read('App.fb_id');
 		$this->fb_key		= Configure::read('App.fb_key');
 		$this->fb_secret	= Configure::read('App.fb_secret');
-		//set up the specifics for connecting to facebook's api
-		$this->request_params['port']		= 443;
-		$this->request_params['scheme']		= 'tls://';
-		$this->request_params['host']		= $this->fb_d;
 	}
 
 	/* set_redirect_uri
@@ -114,6 +136,8 @@ class FbComponent extends HttpRequestComponent {
 			$redirect_url .= "client_id={$this->fb_id}";
 			$redirect_url .= "&redirect_uri={$this->redirect_uri}";
 			$redirect_url .= $permissions!=null ? '&'.implode(',', $permissions) : '';
+
+			//*** This needs to be changed when porting ***//
 			$this->controller->redirect($redirect_url);
 
 		}
