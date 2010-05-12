@@ -53,13 +53,13 @@ class Fb extends HttpRequest {
 	//store the token here
 	var $token;
 
-	function FbComponent() {$this->__construct();}
+	function FbComponent($app_id, $app_key, $app_secret) {$this->__construct($app_id, $app_key, $app_secret);}
 
-	function __construct() {
+	function __construct($app_id, $app_key, $app_secret) {
 		//put the FB API keys here:
-		$this->fb_id		= '';
-		$this->fb_key		= '';
-		$this->fb_secret	= '';
+		$this->fb_id		= $app_id;
+		$this->fb_key		= $app_key;
+		$this->fb_secret	= $app_secret;
 
 		//call parent constructor
 		parent::__construct();
