@@ -48,7 +48,7 @@ class HttpRequest {
 
 	function __construct() {
 		//basic request parameters
-		$request_params = array(
+		$this->request_params = array(
 			'port'		=> 80,
 			'scheme'	=> '',
 			'host'		=> 'localhost',
@@ -56,9 +56,9 @@ class HttpRequest {
 			'method'	=> 'GET'
 		);
 		//string represntation of the request
-		$request = '';
+		$this->request = '';
 		//array representation of the response
-		$response = array();
+		$this->response = array();
 	}
 
 	/* explode_query
