@@ -229,7 +229,7 @@ class Fb extends HttpRequest {
 	 *
 	 * <http://developers.facebook.com/docs/api>
 	 */
-	function post_comment($post_id, $message_params) {
+	function post_like($post_id, $message_params) {
 		$this->request_params['method']		= 'POST';
 		$this->request_params['path']		= "$post_id/likes";
 		$this->request_params['query_params']	= array_merge(array(
@@ -298,7 +298,7 @@ class Fb extends HttpRequest {
 	 *
 	 * <http://developers.facebook.com/docs/api>
 	 */
-	function post_link($profile_id, $link_params
+	function post_link($profile_id, $link_params) {
 		$this->request_params['method']		= 'POST';
 		$this->request_params['path']		= "$profile_id/links";
 		$this->request_params['query_params']	= array_merge(array(
