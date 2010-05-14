@@ -170,8 +170,8 @@ class FbComponent extends HttpRequestComponent {
 	 * as a hash with keys that match the expected values as specified at:
 	 * <http://developers.facebook.com/docs/api>
 	 */
-	function get_object($object) {
-		$this->request_params['path']		= $object;
+	function get_object($object_id) {
+		$this->request_params['path']		= $object_id;
 		$this->request_params['query_params']	= array(
 				'access_token' => $this->token
 			);
@@ -180,6 +180,24 @@ class FbComponent extends HttpRequestComponent {
 			$object = json_decode($object, true);
 		}
 		return $object;	
+	}
+
+	/* delete_object
+	 * -------------
+	 * Deletes an object's from the FB social graph if you have permissions.
+	 * <http://developers.facebook.com/docs/api>
+	 */
+	function delete_object($object_id) {
+		$this->request_params['method']		= 'POST';
+		$this->request_params['path']		= $object_id;
+		$this->request_params['query_params']	= array(
+				'access_token' => $this->token
+			);
+		$object = $this->do_request() ? $this->get_data() : null;
+		if ($object != null) {
+			$object = json_decode($object, true);
+		}
+		return $object;
 	}
 
 	/* get_connection_types
@@ -223,17 +241,121 @@ class FbComponent extends HttpRequestComponent {
 		return isset($object['data']) ? $object['data'] : null;
 	}
 
-	function post_feed($object, $message_params) {
+	/* post_feed
+	 * ---------
+	 * Posts a message to $profile_id's feed and returns the message id.
+	 * This is basically a way to post to a user's wall, But can be used to
+	 * post to pages or events.
+	 *
+	 * Message parameters: message, picture, link, name, description
+	 *
+	 * <http://developers.facebook.com/docs/api>
+	 */
+	function post_feed($profile_id, $message_params) {
 		$this->request_params['method']		= 'POST';
-		$this->request_params['path']		= "$object/feed";
+		$this->request_params['path']		= "$profile_id/feed";
 		$this->request_params['query_params']	= array_merge(array(
 				'access_token' => $this->token
 			), $message_params);
 		$this->request_params['body']		= $this->build_query($message_params);
-		$object = $this->do_request() ? $this->get_data() : null;
-		if ($object != null) {
-			$object = json_decode($object, true);
+		$post_id = $this->do_request() ? $this->get_data() : null;
+		if ($post_id != null) {
+			$post_id = json_decode($post_id, true);
+			$post_id = $post_id['id'];
 		}
-		return $object;
+		return $post_id;
 	}
+
+	/* post_like
+	 * ---------
+	 * Likes a post.
+	 *
+	 * Massage parameters: none
+	 *
+	 * <http://developers.facebook.com/docs/api>
+	 */
+	function post_comment($post_id, $message_params) {
+		$this->request_params['method']		= 'POST';
+		$this->request_params['path']		= "$post_id/likes";
+		$this->request_params['query_params']	= array_merge(array(
+				'access_token' => $this->token
+			), $message_params);
+		$this->request_params['body']		= '';
+		$like_id = $this->do_request() ? $this->get_data() : null;
+		if ($like_id != null) {
+			$like_id = json_decode($like_id, true);
+			$like_id = $like_id['id'];
+		}
+		return $like_id;
+	}
+
+	/* post_comment
+	 * ------------
+	 * Posts a comment to $post_id and returns the comment id.
+	 *
+	 * Massage parameters: message
+	 *
+	 * <http://developers.facebook.com/docs/api>
+	 */
+	function post_comment($post_id, $message_params) {
+		$this->request_params['method']		= 'POST';
+		$this->request_params['path']		= "$post_id/comments";
+		$this->request_params['query_params']	= array_merge(array(
+				'access_token' => $this->token
+			), $message_params);
+		$this->request_params['body']		= $this->build_query($message_params);
+		$comment_id = $this->do_request() ? $this->get_data() : null;
+		if ($comment_id != null) {
+			$comment_id = json_decode($comment_id, true);
+			$comment_id = $comment_id['id'];
+		}
+		return $comment_id;
+	}
+
+	/* post_note
+	 * ---------
+	 * Posts a note to $profile_id's feed and returns the note id.
+	 *
+	 * Massage parameters: subject, message (an HTML string)
+	 *
+	 * <http://developers.facebook.com/docs/api>
+	 */
+	function post_note($profile_id, $note_params) {
+		$this->request_params['method']		= 'POST';
+		$this->request_params['path']		= "$profile_id/notes";
+		$this->request_params['query_params']	= array_merge(array(
+				'access_token' => $this->token
+			), $message_params);
+		$this->request_params['body']		= $this->build_query($message_params);
+		$note_id = $this->do_request() ? $this->get_data() : null;
+		if ($note_id != null) {
+			$note_id = json_decode($note_id, true);
+			$note_id = $note_id['id'];
+		}
+		return $note_id;
+	}
+
+	/* post_link
+	 * ---------
+	 * Posts a link to $profile_id and returns the link id.
+	 *
+	 * Massage parameters: link, message
+	 *
+	 * <http://developers.facebook.com/docs/api>
+	 */
+	function post_link($profile_id, $link_params
+		$this->request_params['method']		= 'POST';
+		$this->request_params['path']		= "$profile_id/links";
+		$this->request_params['query_params']	= array_merge(array(
+				'access_token' => $this->token
+			), $message_params);
+		$this->request_params['body']		= $this->build_query($message_params);
+		$link_id = $this->do_request() ? $this->get_data() : null;
+		if ($link_id != null) {
+			$link_id = json_decode($link_id, true);
+			$link_id = $link_id['id'];
+		}
+		return $link_id;
+	}
+
 }
