@@ -36,3 +36,85 @@ In keeping with this, all methods will be named with the following scheme:
 	- verb_relationship(object_id)
 Except when the relationship is self then you will be able to access the object:
 	- verb_object(object_id)
+
+Current Implementation
+======================
+
+  set_redirect_uri
+  ----------------
+  Sets the URI that face will redirect the user to after authentication
+ 
+  auth_redirect
+  -------------
+  Redirects the user to the autication page if necessary.
+  You can set the permissions you would like by passing in an array of permissions:
+      auth_redirect( array( 'publish_stream', 'create_event', 'rsvp_event' ) );
+  See <http://developers.facebook.com/docs/authentication/permissions>
+  for a full list of permissions.
+ 
+  get_token
+  ---------
+  After authentication is requested this function will return true if 
+  the access token was retreived successfully. The access token is stored
+  in $this->token.
+ 
+  get_object
+  ----------
+  Requests an object's basic info from the FB social graph. Returns data
+  as a hash with keys that match the expected values as specified at:
+  <http://developers.facebook.com/docs/api>
+ 
+  delete_object
+  -------------
+  Deletes an object's from the FB social graph if you have permissions.
+  <http://developers.facebook.com/docs/api>
+ 
+  get_connection_types
+  --------------------
+  Requests an object's connection types to the FB social graph. Returns
+  a hash of connection types as keys and links to the respective api
+  calls.
+  <http://developers.facebook.com/docs/api>
+ 
+  get_connections
+  ---------------
+  Requests an object's connections to other objects on the FB graph.
+  $relation can be: any of: (friends, home, feed (Wall), likes, 
+  movies, books, notes, photos, videos, events, groups).
+  However, call get_connection_types to get a real list of connection
+  an object supports.
+  <http://developers.facebook.com/docs/api>
+ 
+  post_feed
+  ---------
+  Posts a message to $profile_id's feed and returns the message id.
+  This is basically a way to post to a user's wall, But can be used to
+  post to pages or events.
+ 
+  Message parameters: message, picture, link, name, description
+ 
+  <http://developers.facebook.com/docs/api>
+ 
+  post_like
+  ---------
+  Likes a post.
+ 
+  Message parameters: none
+ 
+  <http://developers.facebook.com/docs/api>
+ 
+  post_comment
+  ------------
+  Posts a comment to $post_id and returns the comment id.
+ 
+  Message parameters: message
+ 
+  post_note
+  ---------
+  Posts a note to $profile_id's feed and returns the note id.
+  Message parameters: subject, message (an HTML string)
+ 
+  post_link
+  ---------
+  Posts a link to $profile_id and returns the link id.
+  Message parameters: link, message
