@@ -270,7 +270,7 @@ class FbComponent extends HttpRequestComponent {
 	 * ---------
 	 * Likes a post.
 	 *
-	 * Massage parameters: none
+	 * Message parameters: none
 	 *
 	 * <http://developers.facebook.com/docs/api>
 	 */
@@ -293,7 +293,7 @@ class FbComponent extends HttpRequestComponent {
 	 * ------------
 	 * Posts a comment to $post_id and returns the comment id.
 	 *
-	 * Massage parameters: message
+	 * Message parameters: message
 	 *
 	 * <http://developers.facebook.com/docs/api>
 	 */
@@ -316,7 +316,7 @@ class FbComponent extends HttpRequestComponent {
 	 * ---------
 	 * Posts a note to $profile_id's feed and returns the note id.
 	 *
-	 * Massage parameters: subject, message (an HTML string)
+	 * Message parameters: subject, message (an HTML string)
 	 *
 	 * <http://developers.facebook.com/docs/api>
 	 */
@@ -339,7 +339,7 @@ class FbComponent extends HttpRequestComponent {
 	 * ---------
 	 * Posts a link to $profile_id and returns the link id.
 	 *
-	 * Massage parameters: link, message
+	 * Message parameters: link, message
 	 *
 	 * <http://developers.facebook.com/docs/api>
 	 */
