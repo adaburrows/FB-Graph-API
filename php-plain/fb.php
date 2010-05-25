@@ -143,7 +143,7 @@ class Fb extends HttpRequest {
 	 * <http://developers.facebook.com/docs/api>
 	 */
 	function delete_object($object_id) {
-		$this->request_params['method']		= 'POST';
+		$this->request_params['method']		= 'DELETE';
 		$this->request_params['path']		= $object_id;
 		$this->request_params['query_params']	= array(
 				'access_token' => $this->token
